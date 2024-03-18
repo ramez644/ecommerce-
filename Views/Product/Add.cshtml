@@ -1,0 +1,129 @@
+﻿@* 
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Add</h1> *@
+
+@model Oseas.Models.Products
+
+
+<h1>Add</h1>
+
+<h4>Products</h4>
+<hr />
+@* <div class="row">
+    <div class="col-md-4">
+        <br />
+        <a asp-action="Index" asp-controller="Product">back to list tag helper</a>
+        <br />
+        <form asp-action="Add" asp-controller="Product" method="post"> 
+            <div asp-validation-summary="All" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductKind" class="control-label"></label>
+                <input asp-for="ProductKind" class="form-control" />
+                <span asp-validation-for="ProductKind" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="ImageUpload" class="form-control" />
+                
+                <img id="imgpreview" class="pt-2"/>
+                <span asp-validation-for="ImageUpload" class="text-danger"></span>
+
+               
+
+            </div>
+            <div>
+                <button class="btn btn-primary">create</button>
+              
+            </div>
+        </form>
+            </div>
+</div> *@
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" asp-controller="Product" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductKind" class="control-label"></label>
+                <input asp-for="ProductKind" class="form-control" />
+                <span asp-validation-for="ProductKind" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="ImageUpload" class="form-control" type="file" value="choose" class="btn btn-primary" accept="image/*" />
+       
+                @* <img id="imgpreview" class="pt-2" />   *@
+              @*    <span asp-validation-for="ImageUpload" class="text-danger"></span> *@
+
+
+
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+            <script>
+
+                $("ImageUpload").change(function () {
+
+                    readUrl(this);
+                });
+
+               
+
+            </script>
+
+         
+        }
+       

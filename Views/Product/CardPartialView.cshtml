@@ -1,0 +1,13 @@
+﻿@model Products
+
+<div class="card" style="width:400px">
+    <div class="card-body">
+      <h4 class="card-title">@Model.ProductName</h4>
+      <p class="card-text">
+          @Model.Price -@Model.ProductKind
+      </p>
+        <a href="/Product/Index/ class="btn btn-primary">See Profile</a>
+    </div>
+    <img class="card-img-bottom" src="/images/@Model.Image" alt="Card image" style="width:100%">
+  </div>
+</div>

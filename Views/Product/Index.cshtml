@@ -1,0 +1,137 @@
+﻿@model IEnumerable<Oseas.Models.Products>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductKind)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+          @*   <th>
+                @Html.DisplayNameFor(model => model.ShopingCardId)
+            </th> *@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductKind)
+            </td>
+            <td>
+                <img src ="@item.Image" class="img-fluid" alt="" >
+            </td>
+            @* <td>
+                @Html.DisplayFor(modelItem => item.ShopingCardId)
+            </td> *@
+            <td>
+             @*    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) | *@
+                    <a  asp-area="" asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id">Edit  </a>
+                    @* <button type="button" id="Addtocart" onclick="add(@item.Id)" class="btn btn-primary">Add to cart</button> *@
+                    <button type="button" id="addToCart" data-id="${item.Id}" class="btn btn-primary">Add To Cart</button>
+            @*         <a class="btn btn-primary" asp-controller="ShoppingCart" asp-action="AddItem" asp-route-id="@item.Id">Add to cart</a> *@
+     
+
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+
+
+
+</table>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+ @*    <script>
+        async function add(prodId) {
+            var response = await fetch(`/ShoppingCart/AddItem?prodId=${prodId}`);
+            // var usernameEl = document.getElementById("username");
+            // if (usernameEl == null) {
+            //     window.location.href = "/Views/Account/LogIn";
+            //     //var username=usernameEl.innerText;
+            //     //  if(username.length<1){
+            //     //      window.location.href="/Identity/Account/Login";
+            //     //  }
+            // }
+            try {
+                async function add(prodId)
+                var response = await fetch(`/ShoppingCart/AddItem?prodId=${prodId}`);
+                if (response.status == 200) {
+                    var result = await response.json();
+                    // var cartCountEl = document.getElementById("cartCount");
+                    // cartCountEl.innerHTML = result;
+                    // window.location.href = "#cartCount";
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+    </script> *@
+
+    <script>
+
+        $('addToCart').click(function () {
+            var productId = $(this).data('id');
+
+            $.ajax({
+                url: '/ShoppingCart/AddToItem',
+                type: 'GET',
+                data: { prodId: productId },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message); // Display success message
+                    } else {
+                        alert('Failed to add item to cart'); // Display error message if needed
+                    }
+                },
+                error: function (xhr, status, error) {
+                  
+                    console.error(error); // Log any errors to the console
+                    alert('An error occurred while adding item to cart');
+                }
+
+            });
+        });
+    </script>
+}
